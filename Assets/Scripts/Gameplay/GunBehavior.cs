@@ -4,15 +4,21 @@ using UnityEngine;
 
 public class GunBehavior : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField]
+    private GameObject _bullet;
+    [SerializeField]
+    private float _bulletSpeed;
+    private string _shooterName;
+
+    private void Start()
     {
-        
+        _shooterName = transform.parent.tag;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Shoot()
     {
-        
+        GameObject newBullet = Instantiate(_bullet, transform.position, new Quaternion());
+        BulletBehavior bulletScript = newBullet.GetComponent<BulletBehavior>();
+        bulletScript.Fire(transform.forward * _bulletSpeed, _shooterName);
     }
 }

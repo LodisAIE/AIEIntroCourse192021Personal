@@ -8,22 +8,31 @@ public class BulletBehavior : MonoBehaviour
     private float _despawnTime;
     [SerializeField]
     private float _damage;
-
     private Rigidbody _rigidbody;
+    private string owner;
 
     // Start is called before the first frame update
     void Start()
     {
-        //Grabs the rigidbody component attached to the bullet.
+        //Grabs the rigid body component attached to the bullet.
         _rigidbody = GetComponent<Rigidbody>();
-
         //Deletes the bullet after the given amount of time has passed.
         Destroy(gameObject, _despawnTime);
     }
 
+    private void Awake()
+    {
+        
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-        //Tries to find the health script on ther game object it collided with.
+        if (other.tag == owner)
+        {
+            return;
+        }
+
+        //Tries to find the health script on the game object it collided with.
         HealthBehavior otherHealth = other.GetComponent<HealthBehavior>();
 
         /// If the GetComponent function cannot find a health script on the object,
@@ -45,8 +54,9 @@ public class BulletBehavior : MonoBehaviour
     /// Called when ever a bullet is going to be fired. Applies a force to the 
     /// gameObject using the velocity given.
     /// </summary>
-    public void AddForce(Vector3 velocity)
+    public void Fire(Vector3 velocity, string shooterName)
     {
+        owner = shooterName;
         _rigidbody.AddForce(velocity, ForceMode.Impulse);
     }
 }
