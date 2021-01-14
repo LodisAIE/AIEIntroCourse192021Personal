@@ -10,8 +10,10 @@ public class PlayerShootBehavour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Checks to see if the player pressed the button to fire.
         if (Input.GetButtonDown("Fire1"))
         {
+            //Calls the shoot function for the gun.
             _bulletEmitter.Shoot();
         }
     }

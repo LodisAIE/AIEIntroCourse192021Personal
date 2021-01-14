@@ -11,24 +11,26 @@ public class BulletBehavior : MonoBehaviour
     private Rigidbody _rigidbody;
     private string owner;
 
-    // Start is called before the first frame update
-    void Start()
+
+    private void Awake()
     {
         //Grabs the rigid body component attached to the bullet.
         _rigidbody = GetComponent<Rigidbody>();
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
         //Deletes the bullet after the given amount of time has passed.
         Destroy(gameObject, _despawnTime);
     }
 
-    private void Awake()
-    {
-        
-    }
-
     private void OnTriggerEnter(Collider other)
     {
+        //Checks to see if the tag of the object that the bullet collided with is the same as its owner.
         if (other.tag == owner)
         {
+            //If the tag is the same as the owner name leave the function.
             return;
         }
 
@@ -51,12 +53,14 @@ public class BulletBehavior : MonoBehaviour
     }
 
     /// <summary>
-    /// Called when ever a bullet is going to be fired. Applies a force to the 
+    /// Called whenever a bullet is going to be fired. Applies a force to the 
     /// gameObject using the velocity given.
     /// </summary>
-    public void Fire(Vector3 velocity, string shooterName)
+    public void Fire(Vector3 force, string shooterTag)
     {
-        owner = shooterName;
-        _rigidbody.AddForce(velocity, ForceMode.Impulse);
+        //Sets the owner of this bullet to be the tag passed in
+        owner = shooterTag;
+        //Uses the attached rigid body to add an impulse force to the bullet.
+        _rigidbody.AddForce(force, ForceMode.Impulse);
     }
 }
