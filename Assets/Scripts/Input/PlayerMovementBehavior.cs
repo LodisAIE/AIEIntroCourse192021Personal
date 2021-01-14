@@ -6,6 +6,8 @@ public class PlayerMovementBehavior : MonoBehaviour
 {
     //Player's speed
     public float speed;
+    public float xMin;
+    public float yMin;
 
     //The axis that the player is moving on
     private Vector3 moveDirection;
@@ -25,10 +27,12 @@ public class PlayerMovementBehavior : MonoBehaviour
             //If the button has been pressed, add the moveDirection multiplied by the speed to the position of the game object
             transform.position += moveDirection * speed * Time.deltaTime;
         }
-        
         else if (Input.GetAxisRaw("Horizontal") == -1)
         {
             transform.position -= moveDirection * speed * Time.deltaTime;
         }
+        var clamppedPosition = transform.position;
+        clamppedPosition.x = Mathf.Clamp(clamppedPosition.x, xMin, yMin);
+        transform.position = clamppedPosition;
     }
 }
