@@ -7,15 +7,15 @@ public class PlayerMovementBehavior : MonoBehaviour
     //Player's speed
     public float speed;
     public float xMin;
-    public float yMin;
+    public float xMax;
 
     //The axis that the player is moving on
-    private Vector3 moveDirection;
+    private Vector3 _moveDirection;
 
     // Start is called before the first frame update
     void Start()
     {
-        moveDirection = new Vector3(1, 0, 0);
+        _moveDirection = new Vector3(1, 0, 0);
     }
 
     // Update is called once per frame
@@ -25,14 +25,19 @@ public class PlayerMovementBehavior : MonoBehaviour
         if (Input.GetAxisRaw("Horizontal") == 1)
         {
             //If the button has been pressed, add the moveDirection multiplied by the speed to the position of the game object
-            transform.position += moveDirection * speed * Time.deltaTime;
+            transform.position += _moveDirection * speed * Time.deltaTime;
         }
+        //Checks to see if the button to go left is being pressed
         else if (Input.GetAxisRaw("Horizontal") == -1)
         {
-            transform.position -= moveDirection * speed * Time.deltaTime;
+            //If the button has been pressed, subtract the moveDirection multiplied by the speed to the position of the game object
+            transform.position -= _moveDirection * speed * Time.deltaTime;
         }
-        var clamppedPosition = transform.position;
-        clamppedPosition.x = Mathf.Clamp(clamppedPosition.x, xMin, yMin);
-        transform.position = clamppedPosition;
+        //Creates a temporary vector set to our current position.
+        Vector3 clampedPosition = transform.position;
+        //Clamps the temporary vector to be within the minimum and maximum x positions 
+        clampedPosition.x = Mathf.Clamp(clampedPosition.x, xMin, xMax);
+        //Sets the position to be the new clamped position
+        transform.position = clampedPosition;
     }
 }
