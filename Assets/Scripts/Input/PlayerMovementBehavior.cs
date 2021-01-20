@@ -8,7 +8,7 @@ public class PlayerMovementBehavior : MonoBehaviour
     public float speed;
     public float xMin;
     public float xMax;
-
+    public float rotationVal;
     //The axis that the player is moving on
     private Vector3 _moveDirection;
 
@@ -26,13 +26,21 @@ public class PlayerMovementBehavior : MonoBehaviour
         {
             //If the button has been pressed, add the moveDirection multiplied by the speed to the position of the game object
             transform.position += _moveDirection * speed * Time.deltaTime;
+            rotationVal -= Time.deltaTime;
         }
         //Checks to see if the button to go left is being pressed
         else if (Input.GetAxisRaw("Horizontal") == -1)
         {
             //If the button has been pressed, subtract the moveDirection multiplied by the speed to the position of the game object
             transform.position -= _moveDirection * speed * Time.deltaTime;
+            rotationVal += Time.deltaTime;
         }
+        else
+        {
+            rotationVal = 0;
+        }
+        rotationVal = Mathf.Clamp(rotationVal, -0.3f, 0.3f);
+        transform.rotation = new Quaternion(0, Mathf.Lerp(transform.rotation.x, rotationVal, Time.time), 0, 1);
         //Creates a temporary vector set to our current position.
         Vector3 clampedPosition = transform.position;
         //Clamps the temporary vector to be within the minimum and maximum x positions 
