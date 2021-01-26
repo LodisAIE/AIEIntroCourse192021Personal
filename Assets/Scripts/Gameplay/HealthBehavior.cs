@@ -6,6 +6,8 @@ public class HealthBehavior : MonoBehaviour
 {
     [SerializeField]
     private float _health;
+    [SerializeField]
+    private GameObject _particleSystem;
 
     public bool isAlive;
 
@@ -30,6 +32,7 @@ public class HealthBehavior : MonoBehaviour
     {
         if (isAlive == false)
         {
+            Instantiate(_particleSystem, transform.position, new Quaternion());
             Destroy(gameObject);
         }
     }
