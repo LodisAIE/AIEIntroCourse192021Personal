@@ -18,7 +18,7 @@ public class GameManagerBehaviour : MonoBehaviour
     
     public void RestartGame()
     {
-        //Loads teh first scene in the buid.
+        //Loads the first scene in the buid.
         SceneManager.LoadScene(0);
     }
 

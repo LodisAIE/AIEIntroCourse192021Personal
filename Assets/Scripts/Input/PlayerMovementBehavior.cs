@@ -9,6 +9,7 @@ public class PlayerMovementBehavior : MonoBehaviour
     public float xMin;
     public float xMax;
     public float rotationVal;
+
     //The axis that the player is moving on
     private Vector3 _moveDirection;
 
@@ -35,12 +36,17 @@ public class PlayerMovementBehavior : MonoBehaviour
             transform.position -= _moveDirection * speed * Time.deltaTime;
             rotationVal += Time.deltaTime;
         }
+        //Sets the rotation to be 0 if the player isn't pressing any buttons.
         else
         {
             rotationVal = 0;
         }
+
+        //Clamps the rotation angle to be between two values so that it doesn't do a complete rotation.
         rotationVal = Mathf.Clamp(rotationVal, -0.3f, 0.3f);
+        //Rotates the game object to face the angle at the new rotation value.
         transform.rotation = new Quaternion(0, Mathf.Lerp(transform.rotation.x, rotationVal, Time.time), 0, 1);
+
         //Creates a temporary vector set to our current position.
         Vector3 clampedPosition = transform.position;
         //Clamps the temporary vector to be within the minimum and maximum x positions 

@@ -29,7 +29,7 @@ public class SwarmBehaviour : MonoBehaviour
         //Check if the swarm moved to the minimum x position
         else if (transform.position.x <= -_xOffset)
         {
-            //Makes the swarm move right after reaching the maximum right position
+            //Makes the swarm move right after reaching the maximum left position
             _velocity = Vector3.right * _moveSpeed;
         }
         //Adds the current velocity to the transform's position
