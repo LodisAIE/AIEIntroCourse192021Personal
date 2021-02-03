@@ -9,6 +9,8 @@ public class GunBehavior : MonoBehaviour
     [SerializeField]
     private float _bulletSpeed;
     private string _shooterName;
+    [SerializeField]
+    private AudioSource _shotSound;
 
     private void Start()
     {
@@ -28,5 +30,7 @@ public class GunBehavior : MonoBehaviour
         //Calls the bullet's fire function; passing in the guns facing scaled by bullet speed for the direction.
         //The tag of the parent of the gun is passed in as the second argument.
         bulletScript.Fire(transform.forward * _bulletSpeed, _shooterName);
+        //Play the shot sound effect after a bullet is spawned.
+        _shotSound.Play();
     }
 }

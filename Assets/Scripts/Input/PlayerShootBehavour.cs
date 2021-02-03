@@ -6,7 +6,8 @@ public class PlayerShootBehavour : MonoBehaviour
 {
     [SerializeField]
     private GunBehavior _bulletEmitter;
-
+    [SerializeField]
+    private AudioSource _laserSound;
     // Update is called once per frame
     void Update()
     {
